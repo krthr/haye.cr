@@ -16,5 +16,3 @@ module Haye
     type.array? ? Parsers.pipe(expression, Presenters::ArrayPresenter.new).to_array : Parsers.pipe(expression, Presenters::HashPresenter.new).to_hash
   end
 end
-
-puts Haye.fromPipe("required")

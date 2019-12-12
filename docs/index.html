@@ -14,8 +14,8 @@
   </symbol>
 </svg>
 
-  <meta id="repository-name" content="">
-  <title>README - </title>
+  <meta id="repository-name" content="github.com/krthr/haye.cr">
+  <title>README - github.com/krthr/haye.cr</title>
   <script type="text/javascript">
   CrystalDoc.base_path = "";
   </script>
@@ -40,32 +40,32 @@
   <div class="types-list">
     <ul>
   
-  <li class="parent " data-id="/Haye" data-name="haye">
+  <li class="parent " data-id="github.com/krthr/haye.cr/Haye" data-name="haye">
       <a href="Haye.html">Haye</a>
       
         <ul>
   
-  <li class=" " data-id="/Haye/Parsers" data-name="haye::parsers">
+  <li class=" " data-id="github.com/krthr/haye.cr/Haye/Parsers" data-name="haye::parsers">
       <a href="Haye/Parsers.html">Parsers</a>
       
     </li>
   
-  <li class="parent " data-id="/Haye/Presenters" data-name="haye::presenters">
+  <li class="parent " data-id="github.com/krthr/haye.cr/Haye/Presenters" data-name="haye::presenters">
       <a href="Haye/Presenters.html">Presenters</a>
       
         <ul>
   
-  <li class=" " data-id="/Haye/Presenters/ArrayPresenter" data-name="haye::presenters::arraypresenter">
+  <li class=" " data-id="github.com/krthr/haye.cr/Haye/Presenters/ArrayPresenter" data-name="haye::presenters::arraypresenter">
       <a href="Haye/Presenters/ArrayPresenter.html">ArrayPresenter</a>
       
     </li>
   
-  <li class=" " data-id="/Haye/Presenters/HashPresenter" data-name="haye::presenters::hashpresenter">
+  <li class=" " data-id="github.com/krthr/haye.cr/Haye/Presenters/HashPresenter" data-name="haye::presenters::hashpresenter">
       <a href="Haye/Presenters/HashPresenter.html">HashPresenter</a>
       
     </li>
   
-  <li class=" " data-id="/Haye/Presenters/Node" data-name="haye::presenters::node">
+  <li class=" " data-id="github.com/krthr/haye.cr/Haye/Presenters/Node" data-name="haye::presenters::node">
       <a href="Haye/Presenters/Node.html">Node</a>
       
     </li>
@@ -75,7 +75,7 @@
       
     </li>
   
-  <li class=" " data-id="/Haye/PresenterTypes" data-name="haye::presentertypes">
+  <li class=" " data-id="github.com/krthr/haye.cr/Haye/PresenterTypes" data-name="haye::presentertypes">
       <a href="Haye/PresenterTypes.html">PresenterTypes</a>
       
     </li>
@@ -102,7 +102,25 @@
 
 <p>Haye is a simple super fast string expression parser. In support <code>pipe</code> and <code>qs</code> string expressions ( explained below ).</p>
 
-<h2><a id="installation" class="anchor" href="#installation">
+<h3><a id="pipe-expression" class="anchor" href="#pipe-expression">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Pipe expression</h3>
+
+<p>The pipe based expression is very popular in Laravel community, due to their <a href="https://laravel.com/docs/validation" target="_blank">Validation engine</a>, and same is adopted by <a href="http://indicative.adonisjs.com" target="_blank">Indicative</a>.</p>
+
+<h4><a id="syntax-example" class="anchor" href="#syntax-example">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Syntax example:</h4>
+
+<pre><code class="language-cr">required|email|max:4|range:10,30</code></pre>
+
+<ol><li>Each item is separated by <code>|</code></li><li>The values are defined after <code>:</code></li><li>Multiple values are separated by <code>,</code>.</li><li>White spaces in keys are trimmed.</li></ol>
+
+<hr/><h2><a id="installation" class="anchor" href="#installation">
   <svg class="octicon-link" aria-hidden="true">
     <use href="#octicon-link"/>
   </svg>
@@ -123,6 +141,44 @@
 </a>Usage</h2>
 
 <pre><code class="language-crystal"><span class="k">require</span> <span class="s">&quot;haye.cr&quot;</span></code></pre>
+
+<h4><a id="pipe-array" class="anchor" href="#pipe-array">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Pipe -> Array</h4>
+
+<pre><code class="language-cr">expression = 'required|email:unique,users'
+parsed = Haye.fromPipe(expression) # Haye.fromPipe(expression, Haye::PresenterTypes::Array)</code></pre>
+
+<p>Output (<code><a href="Haye/Presenters/Node.html">Haye::Presenters::Node</a>[]</code>)</p>
+
+<pre><code>[
+  <span class="c">#&lt;Haye::Presenters::Node:0x7f11fd891e40 </span>
+    @name<span class="o">=</span><span class="s">&quot;required&quot;</span>, 
+    @args<span class="o">=</span><span class="o">[]</span>
+  <span class="o">&gt;</span>, 
+  <span class="c">#&lt;Haye::Presenters::Node:0x7f11fd891de0 </span>
+    @name<span class="o">=</span><span class="s">&quot;email&quot;</span>, 
+    @args<span class="o">=</span>[<span class="s">&quot;unique&quot;</span>, <span class="s">&quot;users&quot;</span>]
+  <span class="o">&gt;</span>
+]</code></pre>
+
+<h4><a id="pipe-hash" class="anchor" href="#pipe-hash">
+  <svg class="octicon-link" aria-hidden="true">
+    <use href="#octicon-link"/>
+  </svg>
+</a>Pipe -> Hash</h4>
+
+<pre><code class="language-cr">expression = 'required|email:unique,users'
+parsed = Haye.fromPipe(expression, Haye::PresenterTypes::Hash)</code></pre>
+
+<p>Output (<code>Hash</code>)</p>
+
+<pre><code class="language-cr">{
+  "required" => [], 
+  "email" => ["unique", "users"]
+}</code></pre>
 
 <h2><a id="contributing" class="anchor" href="#contributing">
   <svg class="octicon-link" aria-hidden="true">
